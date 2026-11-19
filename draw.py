@@ -2,7 +2,7 @@
 """Draw entry.png: the world news of Thursday 19 November 2026 on one wall.
 
 Concept — "THE WORLD IN ONE PICTURE: the global news control room".
-A dark mission-control wall at the moment the day begins in London:
+A dark mission-control wall as the day ends in London:
 one big main screen names the day, a strip of world clocks shows the
 day arriving timezone by timezone, and twelve glowing monitors carry
 the day's twelve biggest stories as flat editorial scenes, each with a
@@ -12,21 +12,20 @@ red news ticker closes the picture. Everything is drawn here with PIL
 (no photographic assets), so the render is deterministic: same bytes
 every run.
 
-The stories are the early-day set for Thursday 19 November 2026,
-gathered in the WIB morning from the overnight wires (Reuters, AP,
-AFP) and the day's first Asia-Pacific editions. The parent agent may
-refresh STORIES/BRIEFS later in the day and re-run this script before
-submitting.
+The stories are the full-day set for Thursday 19 November 2026,
+gathered from the day's wires and editions (Reuters, AP, AFP, The Times,
+Euronews), from the overnight wires through the evening close.
 
 Panels:
- 1. Iran strikes US sites in Kuwait & Bahrain overnight after the US
-    strike on Qeshm Island; both Gulf states report interceptions;
-    first attack on Kuwait since September (Reuters).
- 2. GTA VI unlocks at midnight after a 13-year wait, New Zealand
-    first; midnight queues, leave requests surge worldwide (AFP).
+ 1. Kuwait repels Iran's attack overnight — the first Iranian attack
+    on Kuwait in two months; Saudi Civil Defence sounds then clears a
+    missile warning over Riyadh (Reuters).
+ 2. GTA VI sells over 17 million copies on day one after a 13-year
+    wait, New Zealand first; Metacritic 99/100, leave requests up 32%
+    worldwide (Euronews / AFP).
  3. Trump, Xi and Putin hold the first-ever US-China-Russia trilateral
-    on the APEC sidelines in Shenzhen; nuclear arms and Iran on the
-    agenda (AP).
+    in Shenzhen and issue a joint declaration: UN reform, a nuclear
+    pledge, more refined oil supply; Ukraine unmentioned (The Times).
  4. House Democrats nominate Hakeem Jeffries for Speaker 251-11; he
     would be the first Black Speaker, taking the gavel on 3 January.
  5. A Turkish court gives jailed Istanbul mayor Ekrem Imamoglu two
@@ -41,8 +40,9 @@ Panels:
  9. Two Russian Tu-95 bombers land at Da Nang, Vietnam, after flights
     that skirted Taiwan and breached Japanese airspace; Tokyo lodges a
     stern protest (Reuters).
-10. COP31 in Antalya enters its final hours split between a fossil
-    phase-out and a pledge to triple adaptation finance to $120bn.
+10. COP31 in Antalya enters its final hours as ministers meet in
+    informal session to unblock a final text; Vanuatu urges reform
+    of the climate talks.
 11. Mary Peltola's Alaska win seals a 56-44 Democratic Senate
     majority after nine midterm flips; the House is called too (AP).
 12. Amazon pledges $7 billion for renewable energy projects in India
@@ -545,14 +545,14 @@ SCENES = [sc_kuwait, sc_gta, sc_shenzhen, sc_capitol, sc_istanbul, sc_fires,
 # (camera tag, category, emoji, headline, caption)
 STORIES = [
     ("CAM 01 · KUWAIT", "WAR", "🚀",
-     "IRAN STRIKES US SITES IN KUWAIT",
-     "Gulf states report interceptions — Reuters"),
+     "KUWAIT REPELS IRAN ATTACK",
+     "First Iranian attack in two months — Reuters"),
     ("CAM 02 · AUCKLAND", "CULTURE", "🎮",
-     "GTA VI DAY: THE WORLD CLOCKS IN",
-     "NZ plays first; leave requests surge worldwide"),
+     "GTA VI SELLS 17M ON DAY ONE",
+     "Metacritic 99/100; leave requests up 32%"),
     ("CAM 03 · SHENZHEN", "SUMMIT", "🤝",
-     "THREE PRESIDENTS, ONE TABLE",
-     "First US–China–Russia trilateral ever — AP"),
+     "A JOINT DECLARATION IN SHENZHEN",
+     "UN reform, nuclear pledge; Ukraine unmentioned — Times"),
     ("CAM 04 · WASHINGTON", "POLITICS", "🏛️",
      "JEFFRIES WINS THE GAVEL RACE",
      "Would be the first Black Speaker in US history"),
@@ -572,8 +572,8 @@ STORIES = [
      "RUSSIAN BOMBERS LAND IN VIETNAM",
      "Tokyo protests airspace breach — Reuters"),
     ("CAM 10 · ANTALYA", "CLIMATE", "🌍",
-     "COP31 DEADLOCKED AT THE WIRE",
-     "Fossil phase-out vs $120B adaptation pledge"),
+     "COP31 MINISTERS RACE THE CLOCK",
+     "Informal talks push for a final text — Antalya"),
     ("CAM 11 · ALASKA", "POLITICS", "🗳️",
      "ALASKA FLIPS IT: SENATE 56–44",
      "Democrats take Senate 56–44 + House — AP"),
@@ -582,40 +582,40 @@ STORIES = [
      "For renewable energy across India by 2030"),
 ]
 
-# (emoji, text) — briefs 13..36, all from the 19 Nov 2026 early wires
+# (emoji, text) — briefs 13..36, all from the 19 Nov 2026 full-day wires
 BRIEFS = [
-    ("🛰️", "Mossad chief pressed US for joint Iran strikes"),
-    ("☢️", "IAEA blesses US–Saudi nuclear deal checks"),
-    ("🇺🇬", "Uganda activist charged in a military court"),
-    ("🇲🇦", "Morocco to make 40% of defence kit by 2035"),
-    ("🇺🇦", "EU proposes a €45bn loan for Ukraine"),
-    ("🤝", "Ukraine's allies meet in Berlin as talks stall"),
-    ("📈", "Pew: Islam to be world's largest faith by 2035"),
-    ("💉", "US loses measles-free status after 26 years"),
-    ("🐔", "1.8M birds culled over Florida bird flu"),
-    ("💊", "India readies first home-grown H5N1 vaccine"),
-    ("🎣", "Ecuador fishermen sue US over drone strike"),
-    ("🇬🇹", "Guatemala ratifies 30-day siege in two states"),
-    ("🔋", "Chile exports top $100bn; lithium up 165%"),
-    ("🛢️", "Guyana oil output hits 1.1M barrels a day"),
-    ("🏗️", "Bangkok roadworks halted after crane deaths"),
-    ("💹", "Nvidia revenue doubles to $115.8bn in Q3"),
-    ("🏦", "Fed's Waller floats a 50bp December hike"),
-    ("💶", "Euro-area inflation hits 4.0% in October"),
-    ("🇨🇦", "Canada & China agree more tariff cuts"),
-    ("🇸🇬", "Singapore takes the ASEAN chair for 2027"),
-    ("🧊", "Thwaites model doubles its sea-level share"),
-    ("🌡️", "Weipa: 41 straight days above 36°C"),
-    ("🏏", "India U19 edge Pakistan in Asia Cup final"),
+    ("🇲🇲", "ICJ rules on the Rohingya genocide case"),
+    ("🇧🇩", "Yunus's home torched; 28 districts hit by violence"),
+    ("🌉", "Crimea bridge hit again; car traffic halted"),
+    ("🇺🇦", "Abu Dhabi talks end with no breakthrough"),
+    ("🇩🇪", "30+ leaders meet in Berlin for Ukraine"),
+    ("🇪🇺", "EU proposes a €45bn loan for Ukraine"),
+    ("🇻🇪", "US and Venezuela sign military cooperation deal"),
+    ("🇮🇱", "Israel's rare ground raid in Gaza beyond the yellow line"),
+    ("🛢️", "IEA: Hormuz crisis gravest ever threat to energy security"),
+    ("🚢", "Tanker struck in the Strait of Hormuz; crew safe"),
+    ("🎨", "Van Gogh sells for $190.4M — a record for the artist"),
+    ("🤖", "Anthropic's $81.3B IPO sets a record at $1.5T value"),
+    ("🧒", "589M children lived in conflict zones in 2025"),
+    ("🇮🇩", "Indonesia passes asset-forfeiture bill"),
+    ("🌀", "Cyclone Akvan bears down on Andhra–Odisha"),
+    ("🇫🇯", "Fiji declares disaster over El Niño drought"),
+    ("🌀", "Cyclone Xavier: 100-knot winds near Cook Islands"),
+    ("💻", "N-able confirms server breach; mail portals off"),
+    ("🇪🇨", "Ecuador fishermen sue US over drone strike"),
+    ("🇵🇭", "US–Philippines pursue a $2B+ loan package"),
+    ("🇲🇾", "UNHCR stops registering new asylum cases in Malaysia"),
+    ("📉", "Markets slide: Brent $89.59, Hang Seng −1.90%"),
+    ("🇮🇳", "India–Japan hold 2+2 defence talks in Tokyo"),
     ("🐧", "Ozone hole is 7th-largest in 48 years"),
 ]
 
-CLOCKS = [("AUCKLAND", "13:12", "THU", 1, 12), ("TOKYO", "09:12", "THU", 9, 12),
-          ("JAKARTA", "07:12", "THU", 7, 12), ("LONDON", "00:12", "THU", 0, 12),
-          ("NEW YORK", "19:12", "WED", 7, 12), ("LOS ANGELES", "16:12", "WED", 4, 12)]
+CLOCKS = [("AUCKLAND", "12:12", "FRI", 12, 12), ("TOKYO", "08:12", "FRI", 8, 12),
+          ("JAKARTA", "06:12", "FRI", 6, 12), ("LONDON", "23:12", "THU", 11, 12),
+          ("NEW YORK", "18:12", "THU", 6, 12), ("LOS ANGELES", "15:12", "THU", 3, 12)]
 
-TICKER = ("+++ IRAN STRIKES KUWAIT +++ GTA VI DAY IS HERE +++ TRUMP–XI–PUTIN "
-          "IN SHENZHEN +++ JEFFRIES NOMINATED +++ FIRES CHOKE SOUTHEAST ASIA +++")
+TICKER = ("+++ KUWAIT REPELS IRAN ATTACK +++ GTA VI SELLS 17M +++ TRUMP–XI–PUTIN "
+          "DECLARE +++ ICJ RULES ON ROHINGYA +++ COP31 AT THE WIRE +++")
 
 
 # ---------------- composition ----------------
