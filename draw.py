@@ -60,29 +60,29 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 W = H = 1024
 
 # ---------------- palette ----------------
-WALL = (10, 14, 22)
-WALL2 = (13, 19, 30)
-BEZEL = (26, 34, 48)
-BEZEL_HI = (58, 74, 96)
-SCREEN_EDGE = (0, 229, 255)
-INK = (232, 238, 246)
-SUB = (148, 163, 184)
-FAINT = (100, 116, 138)
-GOLD = (250, 197, 66)
-CYAN = (56, 224, 255)
+WALL = (252, 206, 44)
+WALL2 = (250, 196, 32)
+BEZEL = (116, 58, 180)
+BEZEL_HI = (150, 94, 216)
+SCREEN_EDGE = (160, 90, 0)
+INK = (252, 250, 255)
+SUB = (252, 250, 255)
+FAINT = (252, 250, 255)
+GOLD = (150, 84, 0)
+CYAN = (0, 104, 150)
 RED = (235, 51, 60)
-DARKBAR = (8, 11, 18)
+DARKBAR = (250, 214, 80)
 
 CATCOL = {
-    "WAR": (255, 92, 72),
-    "CULTURE": (255, 110, 199),
-    "SUMMIT": (250, 197, 66),
-    "POLITICS": (96, 165, 250),
-    "CLIMATE": (74, 222, 128),
-    "HEALTH": (45, 212, 191),
-    "SCIENCE": (192, 132, 252),
-    "SECURITY": (251, 146, 60),
-    "BUSINESS": (253, 224, 71),
+    "WAR": (153, 55, 43),
+    "CULTURE": (153, 66, 119),
+    "SUMMIT": (150, 118, 39),
+    "POLITICS": (57, 99, 150),
+    "CLIMATE": (44, 133, 76),
+    "HEALTH": (27, 127, 114),
+    "SCIENCE": (115, 79, 151),
+    "SECURITY": (150, 87, 36),
+    "BUSINESS": (151, 134, 42),
 }
 
 NOTO = "/usr/share/fonts/truetype/noto"
@@ -625,22 +625,22 @@ def rounded(dr, box, r, **kw):
 
 def draw_main_screen(img):
     dr = ImageDraw.Draw(img, "RGBA")
-    rounded(dr, [16, 14, 1008, 158], 14, fill=(5, 9, 16), outline=SCREEN_EDGE, width=2)
+    rounded(dr, [16, 14, 1008, 158], 14, fill=(255, 244, 200), outline=SCREEN_EDGE, width=2)
     rounded(dr, [22, 20, 1002, 152], 10, outline=(18, 60, 78), width=1)
     # LIVE bug, top-left
     dr.ellipse([38, 32, 50, 44], fill=RED)
-    dr.text((56, 30), "LIVE", font=font(SANS_XB, 15), fill=(255, 255, 255))
+    dr.text((56, 30), "LIVE", font=font(SANS_XB, 15), fill=(26, 22, 8))
     # control-room label, right-aligned inside the screen
     lab, lf2, trk = "GLOBAL NEWS CONTROL ROOM", font(SANS_CB, 13), 2
     total = sum(tw(dr, ch, lf2) for ch in lab) + trk * (len(lab) - 1)
     x = 1002 - 18 - total
     for ch in lab:
-        dr.text((x, 30), ch, font=lf2, fill=(120, 200, 220))
+        dr.text((x, 30), ch, font=lf2, fill=(140, 90, 0))
         x += tw(dr, ch, lf2) + trk
     # title
     tf = font(SANS_BLACK, 40)
     s = "THE WORLD IN ONE PICTURE"
-    dr.text(((W - tw(dr, s, tf)) / 2, 44), s, font=tf, fill=(255, 255, 255))
+    dr.text(((W - tw(dr, s, tf)) / 2, 44), s, font=tf, fill=(26, 22, 8))
     # date
     df = font(SANS_XB, 30)
     s = "THURSDAY · 19 NOVEMBER 2026"
@@ -662,12 +662,12 @@ def draw_clocks(img):
         ha = math.radians((hh % 12 + mm / 60) * 30 - 90)
         ma = math.radians(mm * 6 - 90)
         dr.line([(cx, cy), (cx + 7 * math.cos(ha), cy + 7 * math.sin(ha))],
-                fill=(250, 197, 66), width=3)
+                fill=(160, 96, 0), width=3)
         dr.line([(cx, cy), (cx + 10 * math.cos(ma), cy + 10 * math.sin(ma))],
-                fill=(232, 238, 246), width=2)
+                fill=(30, 26, 10), width=2)
         label = f"{city} {tstr} {day}"
         lf = font(SANS_CB, 11)
-        dr.text((cx - tw(dr, label, lf) / 2, y + 25), label, font=lf, fill=(190, 205, 224))
+        dr.text((cx - tw(dr, label, lf) / 2, y + 25), label, font=lf, fill=(90, 74, 20))
 
 
 def draw_monitor(img, idx, x, y):
@@ -691,7 +691,7 @@ def draw_monitor(img, idx, x, y):
     nf = font(SANS_B, 10)
     ns = str(idx + 1)
     dr.text((tx + 8.5 - tw(dr, ns, nf) / 2, ty + 2), ns, font=nf, fill=(10, 12, 18))
-    dr.text((tx + 23, ty + 2), tag, font=font(SANS_CB, 11), fill=col)
+    dr.text((tx + 23, ty + 2), tag, font=font(SANS_CB, 11), fill=(255, 255, 255))
     dr.text((tx + 23 + tw(dr, tag, font(SANS_CB, 11)) + 8, ty + 2), "· " + cat,
             font=font(SANS_CB, 11), fill=FAINT)
     e = emoji_img(emo, 15)
@@ -711,13 +711,13 @@ def draw_monitor(img, idx, x, y):
 def draw_briefs(img):
     dr = ImageDraw.Draw(img, "RGBA")
     y0 = 806
-    rounded(dr, [16, y0, 1008, 978], 10, fill=(9, 13, 22), outline=(40, 54, 74), width=1)
+    rounded(dr, [16, y0, 1008, 978], 10, fill=(255, 248, 214), outline=(214, 170, 40), width=1)
     dr.text((30, y0 + 9), "ALSO TODAY — THE OVERNIGHT WIRES",
-            font=font(SANS_XB, 15), fill=(255, 255, 255))
+            font=font(SANS_XB, 15), fill=(26, 22, 8))
     s = "24 MORE STORIES · ALL FROM THURSDAY 19 NOV (SO FAR)"
     dr.text((1008 - 30 - tw(dr, s, font(SANS_CB, 12)), y0 + 12), s,
             font=font(SANS_CB, 12), fill=FAINT)
-    dr.line([(30, y0 + 36), (994, y0 + 36)], fill=(40, 54, 74), width=1)
+    dr.line([(30, y0 + 36), (994, y0 + 36)], fill=(214, 170, 40), width=1)
     cols, rows = 3, 8
     cw = (1008 - 32 - 2 * 18) / cols
     rh = 16.5
@@ -733,7 +733,7 @@ def draw_briefs(img):
         dr = ImageDraw.Draw(img, "RGBA")
         tf = font(SANS_R, 11)
         dr.text((bx + 40, by + 1), ellipsize(dr, text, tf, cw - 44), font=tf,
-                fill=(198, 212, 228))
+                fill=(30, 26, 10))
 
 
 def draw_ticker(img):
